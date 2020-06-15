@@ -32,7 +32,7 @@ const App = () => {
           <th>Room</th>
           <th>Table ID</th>
           <th>Name</th>
-          <th></th>
+          <th>QRCode</th>
         </thead>
         <tbody>
           {tables.map((table, index) => (
@@ -41,7 +41,9 @@ const App = () => {
               <td>{table.tableId}</td>
               <td>{table.tableName}</td>
               <td>
-                <a href={table.qrCode}>QRCode</a>
+                <a href={table.qrCode} target="_blank">
+                  QRCode
+                </a>
               </td>
             </tr>
           ))}
