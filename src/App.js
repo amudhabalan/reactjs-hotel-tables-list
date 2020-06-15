@@ -1,26 +1,54 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState, useEffect } from 'react';
 import './App.css';
+import axios from 'axios';
 
-function App() {
+const App = () => {
+  const [tables, setTables] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios(
+          process.env.REACT_APP_API_URL +
+            '/tables?apikey=5fe2d632-3e25-4e78-9950-85b01b88092a'
+        );
+        if (response.status !== 200) {
+          console.log(response);
+          return;
+        }
+        setTables(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <table>
+        <thead>
+          <th>Room</th>
+          <th>Table ID</th>
+          <th>Name</th>
+          <th></th>
+        </thead>
+        <tbody>
+          {tables.map((table, index) => (
+            <tr key={index}>
+              <td>{table.room}</td>
+              <td>{table.tableId}</td>
+              <td>{table.tableName}</td>
+              <td>
+                <a href={table.qrCode}>QRCode</a>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
-}
+};
 
 export default App;
