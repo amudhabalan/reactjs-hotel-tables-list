@@ -41,7 +41,11 @@ const App = () => {
               <td>{table.tableId}</td>
               <td>{table.tableName}</td>
               <td>
-                <a href={table.qrCode} target="_blank">
+                <a
+                  href={table.qrCode}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   QRCode
                 </a>
               </td>
